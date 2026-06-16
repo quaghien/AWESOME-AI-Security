@@ -1,14 +1,16 @@
 # AWESOME-AI-Security
 
-A curated list of AI Security papers, standards, tools, and repositories.
+A curated list of AI Security papers, standards, tools, and repositories for learning **LLM Security**, **Agent Security**, **Red Teaming**, and **Runtime Guardrails**.
 
 ---
 
 ## Table of Contents
 
 * [OWASP & NIST](#owasp--nist)
-* [Survey](#survey)
+* [Paper](#paper)
 * [Repo](#repo)
+* [AI Security Workflow](#ai-security-workflow)
+* [Tool Comparison](#tool-comparison)
 
 ---
 
@@ -24,25 +26,101 @@ A curated list of AI Security papers, standards, tools, and repositories.
 
 ---
 
-## Survey
+## Paper
 
-### Agent AI Security
+### Agent AI Security Survey
 
 | Time    | Title                                                                                                                                               | Venue | Code |
 | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ----- | ---- |
 | 2026.06 | [Toward Secure LLM Agents: Threat Surfaces, Attacks, Defenses, and Evaluation](https://arxiv.org/abs/2606.10749)                                    | arXiv | -    |
 | 2026.04 | [A Systematic Survey of Security Threats and Defenses in LLM-Based AI Agents: A Layered Attack Surface Framework](https://arxiv.org/abs/2604.23338) | arXiv | -    |
-|         |                                                                                                                                                     |       |      |
-|         |                                                                                                                                                     |       |      |
-|         |                                                                                                                                                     |       |      |
 
 ---
 
 ## Repo
 
-| Repo                                                            | Description                                                                                          | Language   |  Stars | Forks |
-| --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------- | -----: | ----: |
-| [protectai / llm-guard](https://github.com/protectai/llm-guard) | The Security Toolkit for LLM Interactions                                                            | Python     |  3,077 |   402 |
-| [NVIDIA / garak](https://github.com/NVIDIA/garak)               | The LLM vulnerability scanner                                                                        | Python     |  8,112 | 1,021 |
-| [promptfoo / promptfoo](https://github.com/promptfoo/promptfoo) | Test your prompts, agents, and RAGs. Red teaming, pentesting, and vulnerability scanning for AI      | TypeScript | 22,249 | 1,982 |
-| [NVIDIA / SkillSpector](https://github.com/NVIDIA/SkillSpector) | Security scanner for AI agent skills. Detect vulnerabilities, malicious patterns, and security risks | Python     |  6,536 |   478 |
+| Repo                                                                  | Category                     | Stage                 | Description                                                                                                                |
+| --------------------------------------------------------------------- | ---------------------------- | --------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| [promptfoo / promptfoo](https://github.com/promptfoo/promptfoo)       | LLM Testing / Red Team       | Dev & CI/CD           | Test prompts, agents, and RAGs. Useful for regression tests, model comparison, and AI vulnerability testing                |
+| [NVIDIA / garak](https://github.com/NVIDIA/garak)                     | LLM Vulnerability Scanner    | Security Audit        | Scan LLM applications for prompt injection, jailbreaks, data leakage, hallucination, toxicity, and other model-level risks |
+| [microsoft / PyRIT](https://github.com/microsoft/PyRIT)               | GenAI Red Team Framework     | Security Audit        | Automate multi-turn red teaming for GenAI systems and simulate adversarial conversations against agents                    |
+| [NVIDIA / SkillSpector](https://github.com/NVIDIA/SkillSpector)       | Agent Skill Security         | Supply Chain Security | Scan third-party AI agent skills, tools, plugins, and repositories before installation                                     |
+| [protectai / llm-guard](https://github.com/protectai/llm-guard)       | Runtime Input / Output Guard | Production Runtime    | Detect, sanitize, and block unsafe prompts and responses in real time                                                      |
+| [NVIDIA-NeMo / Guardrails](https://github.com/NVIDIA-NeMo/Guardrails) | Runtime Guardrails           | Production Runtime    | Add programmable guardrails for input, dialog flow, retrieval, tool execution, and output control                          |
+
+---
+
+## AI Security Workflow
+
+```text
+[ Development & Deployment ]
+
+1. Dev & CI/CD
+   └── promptfoo
+       ├── Test prompt behavior
+       ├── Test RAG quality
+       ├── Test agent logic
+       ├── Run regression tests
+       └── Integrate into GitHub Actions / CI pipeline
+
+2. Security Audit
+   ├── garak
+   │   ├── Scan common LLM vulnerabilities
+   │   ├── Test prompt injection
+   │   ├── Test jailbreaks
+   │   ├── Test data leakage
+   │   └── Generate security reports
+   │
+   └── PyRIT
+       ├── Simulate multi-turn attackers
+       ├── Test complex adversarial conversations
+       ├── Evaluate agent behavior under attack
+       └── Test tool misuse and sensitive data leakage
+
+3. Supply Chain Security
+   └── SkillSpector
+       ├── Scan third-party skills
+       ├── Detect risky instructions
+       ├── Detect malicious patterns
+       ├── Review tool permissions
+       └── Check before giving tools to an AI agent
+
+
+[ Production Runtime ]
+
+4. Real-Time Protection
+   ├── llm-guard
+   │   ├── Input scanning
+   │   ├── Output scanning
+   │   ├── PII / secret detection
+   │   ├── Prompt injection detection
+   │   └── Response sanitization
+   │
+   └── NeMo Guardrails
+       ├── Input guardrails
+       ├── Dialog guardrails
+       ├── Retrieval guardrails
+       ├── Tool / execution guardrails
+       └── Output guardrails
+```
+
+---
+
+## Tool Comparison
+
+| Tool                                                         | Test Before Deploy | Real-Time Protection | Agent Security | Prompt Injection | Jailbreak | Data Leakage | Tool Misuse | Skill / Plugin Risk |
+| ------------------------------------------------------------ | -----------------: | -------------------: | -------------: | ---------------: | --------: | -----------: | ----------: | ------------------: |
+| [promptfoo](https://github.com/promptfoo/promptfoo)          |                  ✅ |                    ❌ |              ✅ |                ✅ |         ✅ |            ✅ |           ✅ |                   ❌ |
+| [garak](https://github.com/NVIDIA/garak)                     |                  ✅ |                    ❌ |             ⚠️ |                ✅ |         ✅ |            ✅ |          ⚠️ |                   ❌ |
+| [PyRIT](https://github.com/microsoft/PyRIT)                  |                  ✅ |                    ❌ |              ✅ |                ✅ |         ✅ |            ✅ |           ✅ |                   ❌ |
+| [SkillSpector](https://github.com/NVIDIA/SkillSpector)       |                  ✅ |                    ❌ |              ✅ |                ❌ |         ❌ |           ⚠️ |           ✅ |                   ✅ |
+| [llm-guard](https://github.com/protectai/llm-guard)          |                 ⚠️ |                    ✅ |             ⚠️ |                ✅ |        ⚠️ |            ✅ |           ❌ |                   ❌ |
+| [NeMo Guardrails](https://github.com/NVIDIA-NeMo/Guardrails) |                 ⚠️ |                    ✅ |              ✅ |                ✅ |         ✅ |            ✅ |           ✅ |                   ❌ |
+
+Legend:
+
+* ✅ Strong fit
+* ⚠️ Partial fit / depends on setup
+* ❌ Not the main purpose
+
+---
