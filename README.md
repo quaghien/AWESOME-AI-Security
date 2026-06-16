@@ -13,7 +13,7 @@ A curated list of AI Security papers, standards, tools, and repositories for lea
 * [Tool Comparison](#tool-comparison)
 
 <p align="center">
-  <img src="./assets/ai-security-1.png" alt="Keywords in AI Security" width="50%">
+  <img src="./assets/ai-security-1.png" alt="Keywords in AI Security" width="70%">
 </p>
 
 <p align="center">
