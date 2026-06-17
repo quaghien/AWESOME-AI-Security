@@ -1,4 +1,4 @@
-# AWESOME-AI-Security
+# AWESOME-AI-SECURITY
 
 A curated list of AI Security papers, standards, tools, and repositories for learning **LLM Security**, **Agent Security**, **Red Teaming**, and **Runtime Guardrails**.
 
